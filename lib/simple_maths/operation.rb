@@ -1,22 +1,49 @@
+# frozen_string_literal: true
+
 module SimpleMaths
   class Operation
     attr_accessor :operation, :x, :y
-    def initialize(operation, x, y)
+
+    OPERATIONS = %w[suma resta producto division].freeze
+
+    def initialize(operation, num_x, num_y)
       @operation = operation
-      @x = x
-      @y = y
+      @num_x = num_x
+      @num_y = num_y
     end
 
-    def self.execute_operation
+    def suma
+      @num_x + @num_y if @operation == "suma"
+    end
+
+    def resta
+      @num_x - @num_y if @operation == "resta"
+    end
+
+    def producto
+      @num_x * @num_y if @operation == "producto"
+    end
+
+    def division
+      @num_x / @num_y if @operation == "division"
+    end
+
+    def check_operation
       case @operation
       when "suma"
-        @x + @y
+        suma
       when "resta"
-        @x - @y
+        resta
       when "producto"
-        @x * @y
+        producto
       when "division"
-        @x / @y
+        division
+      end
+    end
+
+    def execute_operation
+      if OPERATIONS.include?(@operation)
+        check_operation
       else
         "Esa operación no está disponible"
       end
